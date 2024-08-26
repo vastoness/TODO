@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To-Do List</title>
+</head>
+<body>
+    <div class="container">
+        <h1>To-Do List</h1>
+        <input type="text" id="new-task" placeholder="Enter a new task...">
+        <button id="add-task">Add Task</button>
+        <h2>Pending Tasks</h2>
+        <ul id="pending-tasks" class="task-list"></ul>
+        <h2>Completed Tasks</h2>
+        <ul id="completed-tasks" class="task-list"></ul>
+    </div>
+
+    <script>
+        document.getElementById('add-task').addEventListener('click', function() {
+            let taskText = document.getElementById('new-task').value;
+            if (taskText === '') return;
+
+            let li = document.createElement('li');
+            li.innerText = taskText;
+
+            let completeButton = document.createElement('button');
+            completeButton.innerText = 'Complete';
+            completeButton.addEventListener('click', function() {
+                li.classList.toggle('completed');
+                if (li.classList.contains('completed')) {
+                    document.getElementById('completed-tasks').appendChild(li);
+                    completeButton.innerText = 'Undo';
+                } else {
+                    document.getElementById('pending-tasks').appendChild(li);
+                    completeButton.innerText = 'Complete';
+                }
+            });
+
+            li.appendChild(completeButton);
+            document.getElementById('pending-tasks').appendChild(li);
+
+            document.getElementById('new-task').value = '';
+        });
+    </script>
+</body>
+</html>
